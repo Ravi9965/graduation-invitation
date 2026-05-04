@@ -9,7 +9,8 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 gsap.registerPlugin(ScrollTrigger);
 
-// === Wait for Google Fonts to load BEFORE creating canvas textures ===
+// === Wait briefly for Google Fonts before creating canvas textures.
+// Tight cap so the scene appears fast even on cold caches; system fallback is acceptable. ===
 if (document.fonts) {
   try {
     await Promise.race([
@@ -18,7 +19,7 @@ if (document.fonts) {
         document.fonts.load('400 32px "Playfair Display"'),
         document.fonts.load('700 16px "Manrope"'),
       ]),
-      new Promise((resolve) => setTimeout(resolve, 2000)),
+      new Promise((resolve) => setTimeout(resolve, 400)),
     ]);
   } catch (_) { /* fall back to system serifs */ }
 }
@@ -1717,22 +1718,16 @@ function init() {
   handleResize();
   document.querySelector('.scene-1')?.classList.add('in-view');
   animate();
-  setTimeout(hideLoading, 800);
+  hideLoading();
 }
 
 async function bootstrap() {
-  // Wait for Google Fonts to load BEFORE creating canvas textures
-  // (otherwise canvas falls back to Georgia/sans-serif and never refreshes)
+  // Tight font cap — system fallback is acceptable; speed trumps perfect first paint.
   if (document.fonts && document.fonts.ready) {
     try {
       await Promise.race([
         document.fonts.ready,
-        new Promise((resolve) => setTimeout(resolve, 1500)), // safety timeout
-      ]);
-      // Also explicitly preload the specific weights we use
-      await Promise.all([
-        document.fonts.load('700 16px "Playfair Display"').catch(() => {}),
-        document.fonts.load('700 16px "Manrope"').catch(() => {}),
+        new Promise((resolve) => setTimeout(resolve, 300)),
       ]);
     } catch (_) { /* ignore */ }
   }
