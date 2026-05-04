@@ -118,6 +118,22 @@ body {
   }
 }
 
+/* Scene 1 fits within the initial viewport so cap + name show together on load */
+.scene-1 {
+  min-height: 100vh;
+}
+.scene-1 .scene-content {
+  margin-top: 38%;
+}
+@media (min-width: 768px) {
+  .scene-1 {
+    min-height: 846px;
+  }
+  .scene-1 .scene-content {
+    margin-top: 360px;
+  }
+}
+
 .scene-content {
   width: 100%;
   max-width: 360px;
