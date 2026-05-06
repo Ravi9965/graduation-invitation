@@ -767,14 +767,14 @@ function loadPhotoTexture() {
         tex.colorSpace = THREE.SRGBColorSpace;
         const img = tex.image;
         if (img && img.width && img.height) {
-          const aspect = img.width / img.height;
-          const zoom = 1.35;
-          const baseX = aspect < 1 ? 1 : 1 / aspect;
-          const baseY = aspect < 1 ? aspect : 1;
-          const rx = baseX / zoom;
-          const ry = baseY / zoom;
+          // Square, aspect-correct crop framed head-to-hands (matches reference framing)
+          const cropTopFrac = 0.18;
+          const cropBotFrac = 0.72;
+          const cropPx = (cropBotFrac - cropTopFrac) * img.height;
+          const rx = cropPx / img.width;
+          const ry = cropPx / img.height;
           tex.repeat.set(rx, ry);
-          tex.offset.set((1 - rx) / 2, (1 - ry) / 2 + 0.12);
+          tex.offset.set((1 - rx) / 2, 1 - cropBotFrac);
           tex.needsUpdate = true;
         }
         resolve(tex);
