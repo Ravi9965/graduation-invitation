@@ -769,8 +769,8 @@ function loadPhotoTexture() {
         if (img && img.width && img.height) {
           // Square, aspect-correct crop centered on the face
           const faceCx = 0.59;     // face center x (fraction of image width)
-          const faceCy = 0.50;     // face center y (fraction of image height, from top)
-          const cropFrac = 0.42;   // crop size (fraction of image height)
+          const faceCy = 0.56;     // pretend face center is lower → real face floats above center, hands enter frame
+          const cropFrac = 0.52;   // crop size (fraction of image height)
           const cropPx = cropFrac * img.height;
           const rx = cropPx / img.width;
           const ry = cropPx / img.height;

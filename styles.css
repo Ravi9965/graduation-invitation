@@ -221,7 +221,7 @@ body {
   height: 210px;
   margin: 0 auto 32px;
   border-radius: 50%;
-  background: url('./public/sriya.jpeg') 71% 50% / 175% auto no-repeat, #002914;
+  background: url('./public/sriya.jpeg') 71% 65% / 155% auto no-repeat, #002914;
   border: 4px solid var(--white);
   position: relative;
   box-shadow:
