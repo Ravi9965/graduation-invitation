@@ -762,7 +762,7 @@ function loadPhotoTexture() {
   return new Promise((resolve) => {
     const loader = new THREE.TextureLoader();
     loader.load(
-      './public/photo.jpg',
+      './public/sriya.jpeg',
       (tex) => { tex.colorSpace = THREE.SRGBColorSpace; resolve(tex); },
       undefined,
       () => resolve(null)
@@ -979,7 +979,7 @@ function makeDiplomaTexture() {
   // Name — biggest, most prominent
   ctx.font = 'bold 64px "Playfair Display", Georgia, serif';
   ctx.fillStyle = '#00190a';
-  ctx.fillText('Ravikiran Padal Sagina', cx, 565);
+  ctx.fillText('Sriya Jaladi', cx, 565);
 
   // Divider
   ctx.strokeStyle = '#00853e';
@@ -1745,7 +1745,7 @@ const shareBtn = document.getElementById('share-btn');
 if (shareBtn) {
   shareBtn.addEventListener('click', async () => {
     const shareData = {
-      title: "You're Invited — Ravikiran's Graduation",
+      title: "You're Invited — Sriya's Graduation",
       text: "Join me as I graduate from the University of North Texas — May 8, 2026!",
       url: window.location.href,
     };
