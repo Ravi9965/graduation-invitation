@@ -763,7 +763,22 @@ function loadPhotoTexture() {
     const loader = new THREE.TextureLoader();
     loader.load(
       './public/sriya.jpeg',
-      (tex) => { tex.colorSpace = THREE.SRGBColorSpace; resolve(tex); },
+      (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        const img = tex.image;
+        if (img && img.width && img.height) {
+          const aspect = img.width / img.height;
+          const zoom = 1.35;
+          const baseX = aspect < 1 ? 1 : 1 / aspect;
+          const baseY = aspect < 1 ? aspect : 1;
+          const rx = baseX / zoom;
+          const ry = baseY / zoom;
+          tex.repeat.set(rx, ry);
+          tex.offset.set((1 - rx) / 2, (1 - ry) / 2 + 0.12);
+          tex.needsUpdate = true;
+        }
+        resolve(tex);
+      },
       undefined,
       () => resolve(null)
     );
